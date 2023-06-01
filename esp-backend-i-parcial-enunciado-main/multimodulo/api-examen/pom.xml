@@ -28,6 +28,15 @@
 		<module>
 			api-movie
 		</module>
+		<module>
+			configServer
+		</module>
+		<module>
+			eurekaServer
+		</module>
+		<module>
+			api-gateway
+		</module>
 	</modules>
 
 
