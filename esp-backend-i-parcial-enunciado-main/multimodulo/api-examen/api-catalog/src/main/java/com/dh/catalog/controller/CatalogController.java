@@ -1,28 +1,31 @@
 package com.dh.catalog.controller;
-
 import com.dh.catalog.client.MovieServiceClient;
-
+import com.dh.catalog.client.SerieServiceClient;
+import com.dh.catalog.model.movie.Movie;
+import com.dh.catalog.model.serie.Serie;
+import com.dh.catalog.service.CatalogService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/catalog")
 public class CatalogController {
 
-	private final MovieServiceClient movieServiceClient;
-
-	public CatalogController(MovieServiceClient movieServiceClient) {
-		this.movieServiceClient = movieServiceClient;
-	}
+	private final CatalogService catalogService;
 
 	@GetMapping("/{genre}")
-	ResponseEntity<List<MovieServiceClient.MovieDto>> getGenre(@PathVariable String genre) {
-		return ResponseEntity.ok(movieServiceClient.getMovieByGenre(genre));
+	public ResponseEntity<CatalogDTO> getGenre(@PathVariable String genre) {
+		return ResponseEntity.ok(catalogService.findCatalogByGenre(genre));
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Movie>> get() {
+		return ResponseEntity.ok(catalogService.getMovies());
 	}
 
 }

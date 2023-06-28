@@ -2,21 +2,17 @@ package com.dh.movie.controller;
 
 import com.dh.movie.model.Movie;
 import com.dh.movie.service.MovieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/movies")
 public class MovieController {
-
-
     private final MovieService movieService;
-
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @GetMapping("/{genre}")
     ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre) {
@@ -27,4 +23,5 @@ public class MovieController {
     ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok().body(movieService.save(movie));
     }
+
 }
